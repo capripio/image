@@ -88,16 +88,6 @@ abstract class AbstractDecoder
     }
 
     /**
-     * Determines if current data is SplFileInfo object
-     *
-     * @return boolean
-     */
-    public function isSplFileInfo()
-    {
-        return is_a($this->data, 'SplFileInfo');
-    }
-
-    /**
      * Determines if current data is Symfony UploadedFile component
      *
      * @return boolean
@@ -138,7 +128,9 @@ abstract class AbstractDecoder
      */
     public function isBinary()
     {
+
         if (is_string($this->data)) {
+            return false;
             $mime = finfo_buffer(finfo_open(FILEINFO_MIME_TYPE), $this->data);
             return (substr($mime, 0, 4) != 'text' && $mime != 'application/x-empty');
         }
@@ -156,16 +148,6 @@ abstract class AbstractDecoder
         $data = $this->decodeDataUrl($this->data);
 
         return is_null($data) ? false : true;
-    }
-
-    /**
-     * Determines if current source data is base64 encoded
-     *
-     * @return boolean
-     */
-    public function isBase64()
-    {
-        return base64_encode(base64_decode($this->data)) === $this->data;
     }
 
     /**
@@ -218,7 +200,7 @@ abstract class AbstractDecoder
             case $this->isInterventionImage():
                 return $this->initFromInterventionImage($this->data);
 
-            case $this->isSplFileInfo():
+            case $this->isSymfonyUpload():
                 return $this->initFromPath($this->data->getRealPath());
 
             case $this->isBinary():
@@ -232,9 +214,6 @@ abstract class AbstractDecoder
 
             case $this->isDataUrl():
                 return $this->initFromBinary($this->decodeDataUrl($this->data));
-
-            case $this->isBase64():
-                return $this->initFromBinary(base64_decode($this->data));
 
             default:
                 throw new Exception\NotReadableException("Image source not readable");
