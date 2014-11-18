@@ -1,4 +1,4 @@
-# Intervention Image
+# Intervention Image (No FileInfo Extention Required)
 
 Intervention Image is a **PHP image handling and manipulation** library providing an easier and expressive way to create, edit, and compose images. The package includes ServiceProviders and Facades for easy **Laravel** integration.
 
@@ -7,7 +7,6 @@ Intervention Image is a **PHP image handling and manipulation** library providin
 ## Requirements
 
 - PHP >=5.3
-- Fileinfo Extension
 
 ## Supported Image Libraries
 
@@ -39,6 +38,8 @@ $img->save('public/bar.jpg');
 Refer to the [documentation](http://image.intervention.io/) to learn more about Intervention Image.
 
 ## Contributing
+
+[Muhammad Asif (Capripio)](http://masif.me/).
 
 Contributions to the Intervention Image library are welcome. Please note the following guidelines before submiting your pull request.
 
